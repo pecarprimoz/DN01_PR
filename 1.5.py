@@ -47,7 +47,7 @@ topTrueFilmi = sorted(trueAvgRatings.items(), key=lambda v: v[1], reverse=True)[
 #uporablam openpyxl od kle naprej ker ima numpy probleme
 from openpyxl import load_workbook
 
-movieNames= load_workbook(filename="moviesRMK.xlsx")
+movieNames= load_workbook(filename="moviesRMK_V1.xlsx")
 useNames = movieNames['movies']
 useNamesID=[]
 useNamesName=[]
@@ -70,7 +70,7 @@ for skval in topTrueFilmi:
             finalShape[id][1]=movname
             break
 filmActors=defaultdict(list)
-movieNames= load_workbook(filename="castRMK.xlsx")
+movieNames= load_workbook(filename="castRMK_V1.xlsx")
 useNames = movieNames['cast']
 for i in range(2,9127):
     wholeColumn=useNames['A'+str(i)].value.split(",")

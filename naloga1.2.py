@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
 from collections import defaultdict
-movieNames= load_workbook(filename="moviesRMK.xlsx")
+movieNames= load_workbook(filename="moviesRMK_V1.xlsx")
 useNames = movieNames['movies']
 filmZanri=[]
 for i in range(2,9127):
@@ -26,8 +26,12 @@ sortedGenres=sorted(splitGenres.items(),key=operator.itemgetter(1))
 
 print("ZANER\t\t\t\t\t\t\tST. POJAVITEV")
 print("-------------------------------------------------")
-
+pojavitve=[]
+zaner=[]
 for value in reversed(sortedGenres):
     print("%-25s | %20d" % (str(value[0]),value[1]))
+    zaner.append(value[0])
+    pojavitve.append(value[1])
 print("Število vseh žanrov: "+str(stGenres))
 #TODO nared še histogram, maš vse podatke tko da bo ez
+

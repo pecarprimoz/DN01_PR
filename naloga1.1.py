@@ -36,7 +36,7 @@ topFilmi=sorted(avgRatings.items(), key=lambda v: v[1], reverse=True)
 #težava ker je film ocenjen enkrat ali manjkrat, popravimo tako da vzamemo vse filme ki so bili ocenjeni več kot 15x
 trueAvgRatings=defaultdict(float)
 for key,value in allMovies.items():
-    if (allMovies[key][0][1] != 0 and allMovies[key][0][1]>15):
+    if (allMovies[key][0][1] != 0 and allMovies[key][0][1]>30):
         trueAvgRatings[key] = allMovies[key][0][0] / allMovies[key][0][1]
     else:
         trueAvgRatings[key] = -1
@@ -47,7 +47,7 @@ topTrueFilmi = sorted(trueAvgRatings.items(), key=lambda v: v[1], reverse=True)[
 #uporablam openpyxl od kle naprej ker ima numpy probleme
 from openpyxl import load_workbook
 
-movieNames= load_workbook(filename="moviesRMK.xlsx")
+movieNames= load_workbook(filename="moviesRMK_V1.xlsx")
 useNames = movieNames['movies']
 useNamesID=[]
 useNamesName=[]
@@ -80,11 +80,12 @@ for key,value in finalShape.items():
 from operator import itemgetter
 
 urejenSeznam=sorted(finishedSortedArray,key=itemgetter(0))
-print("IME FILMA\t\t\t\t\t\t\tNJEGOV RATING")
-print("-------------------------------------------------")
+print("%-55s | %20s" % ("IME FILMA","NJEGOV RATING"))
+a= ["-" for i in range(0,80)]
+print("".join(a))
 
 for value in reversed(urejenSeznam):
-    print("%-25s | %20f" % (str(value[1]).replace("\"",""),value[0]))
+    print("%-55s | %20f" % (str(value[1]).replace("\"",""),value[0]))
 
 
 
