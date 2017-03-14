@@ -26,6 +26,7 @@ for mID,rating in relevantData:
 avgRatings=defaultdict(float)
 for key,value in allMovies.items():
     if(allMovies[key][0][1]!=0):
+        print(allMovies[key][0][1])
         avgRatings[key]=allMovies[key][0][0]/allMovies[key][0][1]
     else:
         avgRatings[key]=-1
