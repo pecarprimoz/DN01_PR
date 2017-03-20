@@ -5,7 +5,7 @@ from collections import defaultdict
 
 set_printoptions(suppress=True)
 
-data = loadtxt("ratings.csv",delimiter=",",skiprows=1)
+data = loadtxt("../data/ratings.csv",delimiter=",",skiprows=1)
 
 userID=[int(i) for i in data[:,0]]
 movieID=[int(i) for i in data[:,1]]
@@ -26,7 +26,7 @@ for mID,rating in relevantData:
 avgRatings=defaultdict(float)
 for key,value in allMovies.items():
     if(allMovies[key][0][1]!=0):
-        print(allMovies[key][0][1])
+        #print(allMovies[key][0][1])
         avgRatings[key]=allMovies[key][0][0]/allMovies[key][0][1]
     else:
         avgRatings[key]=-1
@@ -48,7 +48,7 @@ topTrueFilmi = sorted(trueAvgRatings.items(), key=lambda v: v[1], reverse=True)[
 #uporablam openpyxl od kle naprej ker ima numpy probleme
 from openpyxl import load_workbook
 
-movieNames= load_workbook(filename="moviesRMK_V1.xlsx")
+movieNames= load_workbook(filename="../data/moviesRMK_V1.xlsx")
 useNames = movieNames['movies']
 useNamesID=[]
 useNamesName=[]

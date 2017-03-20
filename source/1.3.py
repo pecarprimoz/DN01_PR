@@ -5,7 +5,7 @@ from collections import defaultdict
 
 set_printoptions(suppress=True)
 
-data = loadtxt("ratings.csv",delimiter=",",skiprows=1)
+data = loadtxt("../data/ratings.csv",delimiter=",",skiprows=1)
 
 userID=[int(i) for i in data[:,0]]
 movieID=[int(i) for i in data[:,1]]
@@ -25,16 +25,16 @@ for mID,rating in relevantData:
 
 avgRatings=list()
 for key,value in allMovies.items():
-    if(allMovies[key][0][1]>10):#dodal bomo filme k so ocenjeni vsaj z 30 ocenami
+    if(allMovies[key][0][1]>=30):#dodal bomo filme k so ocenjeni vsaj z 30 ocenami
         avgRatings.append([key,allMovies[key][0][0]/allMovies[key][0][1],allMovies[key][0][1]])
 
-print(avgRatings)
+#print(avgRatings)
 from operator import itemgetter
 urejenoPoOgledihPad=sorted(avgRatings, key=itemgetter(2))[:10]
 urejenoPoOgledihNar=sorted(avgRatings, key=itemgetter(2), reverse=True)[:10]
 print("IZPIS JE MOVIE ID, MOVIE AVG. SCORE, MOVIE ST. OCEN")
-print("PADAJOCE ZAPOREDJE")
+print("NARAŠČUJOČE ZAPOREDJE")
 print(urejenoPoOgledihPad)
-print("NARASCAJOCE ZAPOREDJE")
+print("PADAJOČE ZAPOREDJE")
 print(urejenoPoOgledihNar)
 #ugotovitev da večkrat gledani/ocenjeni filmi so boljše ocenjeni kot filmi ki so ocenjeni ~11 krat

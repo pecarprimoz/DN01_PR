@@ -5,7 +5,7 @@ from collections import defaultdict
 
 set_printoptions(suppress=True)
 
-data = loadtxt("ratings.csv",delimiter=",",skiprows=1)
+data = loadtxt("../data/ratings.csv",delimiter=",",skiprows=1)
 
 userID=[int(i) for i in data[:,0]]
 movieID=[int(i) for i in data[:,1]]
@@ -47,7 +47,7 @@ topTrueFilmi = sorted(trueAvgRatings.items(), key=lambda v: v[1], reverse=True)[
 #uporablam openpyxl od kle naprej ker ima numpy probleme
 from openpyxl import load_workbook
 
-movieNames= load_workbook(filename="moviesRMK_V1.xlsx")
+movieNames= load_workbook(filename="../data/moviesRMK_V1.xlsx")
 useNames = movieNames['movies']
 useNamesID=[]
 useNamesName=[]
@@ -70,7 +70,7 @@ for skval in topTrueFilmi:
             finalShape[id][1]=movname
             break
 filmActors=defaultdict(list)
-movieNames= load_workbook(filename="castRMK_V1.xlsx")
+movieNames= load_workbook(filename="../data/castRMK_V1.xlsx")
 useNames = movieNames['cast']
 for i in range(2,9127):
     wholeColumn=useNames['A'+str(i)].value.split(",")
@@ -87,17 +87,31 @@ for key,value in finalShape.items():
 #print(popularActors)
 import operator
 sortedActors = sorted(popularActors.items(), key=operator.itemgetter(1))
+print(sortedActors)
 # print(sortedGenres)
 print("10 najpopularnejših igralcev, gledamo 500 najbolje ocenjenih filmov razvrščeni v padajočem vrstnem redu.")
 print("IGRALEC\t\t\t\t\t\t\tST. POJAVITEV")
 print("-------------------------------------------------")
-
+izrisActor=[]
+izrisCount=[]
 actorCount=0
 for value in reversed(sortedActors):
+    izrisActor.append(value[0])
+    izrisCount.append(value[1])
     print("%-25s | %20d" % (str(value[0]), value[1]))
     actorCount+=1
     if actorCount>=10:
         break
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+y_axis = np.arange(1, len(izrisActor) + 1, 1)
+plt.barh(y_axis, izrisCount[::-1], align='center')
+plt.yticks(y_axis, izrisActor[::-1])
+plt.show()
+
+
     #TIL, če zippaš dva arraya prej in ju uporabš v for zanki, se noče restartat, če nardiš vsakič na novo je vredu?
 #key je id filma, value je array [rating,ime filma]
 #for key,value in finalShape.items():
