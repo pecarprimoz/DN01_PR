@@ -1,2 +1,2 @@
-# Repozitorij za prvo domačo nalogo pri predmetu Podatkovno Rudarjenje
+# Repozitorij za domače naloge pri predmetu Podatkovno Rudarjenje
 Avtor: Primož Pečar
