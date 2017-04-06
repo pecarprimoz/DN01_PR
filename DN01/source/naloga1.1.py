@@ -32,17 +32,17 @@ for key,value in allMovies.items():
         avgRatings[key]=-1
 
 topFilmi=sorted(avgRatings.items(), key=lambda v: v[1], reverse=True)
-print(topFilmi)
+#print(topFilmi)
 
 #težava ker je film ocenjen enkrat ali manjkrat, popravimo tako da vzamemo vse filme ki so bili ocenjeni več kot 15x
 trueAvgRatings=defaultdict(float)
 for key,value in allMovies.items():
-    if (allMovies[key][0][1] != 0 and allMovies[key][0][1]):
+    if (allMovies[key][0][1] != 0 and allMovies[key][0][1]>30):
         trueAvgRatings[key] = allMovies[key][0][0] / allMovies[key][0][1]
     else:
         trueAvgRatings[key] = -1
 
-topTrueFilmi = sorted(trueAvgRatings.items(), key=lambda v: v[1], reverse=True)
+topTrueFilmi = sorted(trueAvgRatings.items(), key=lambda v: v[1], reverse=True)[:100]
 #print(topTrueFilmi)
 
 #uporablam openpyxl od kle naprej ker ima numpy probleme
@@ -113,4 +113,3 @@ for value in reversed(urejenSeznam):
 #izpis vseh id-jev in imen
 #print(useNamesID)
 #print(useNamesName)
-
