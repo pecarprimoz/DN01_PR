@@ -30,13 +30,23 @@ for key,value in allMovies.items():
 tempMov=defaultdict(float)
 for key,value in statisticMovies.items():
     tempMov[key]=value[1][0]
+mySTD=[]
+for key,value in tempMov.items():
+    mySTD.append(value)
 
-print(tempMov)
+print(mySTD)
+mu_fit = np.mean(mySTD)
+n=len(mySTD)
+sigma2_fit =(n-1)/n * np.var(mySTD)
+print("########## OCENA ###########")
+print(mu_fit,sigma2_fit)
+
 import operator
 sorted_x = sorted(tempMov.items(), key=operator.itemgetter(0))
 temp=[]
 for key,value in sorted_x:
     temp.append(value)
+
 import matplotlib.pyplot as plt
 plt.hist(temp, bins='auto')
 plt.title("Porazdelitev standardnih odklonov filmov.")

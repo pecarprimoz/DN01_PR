@@ -1,11 +1,9 @@
 from datetime import datetime
-from locale import currency
 
-from Tools.pynche.ColorDB import get_colordb
 from numpy import *
 from collections import defaultdict
 
-from openpyxl.utils.cell import get_column_letter
+from openpyxl.utils import get_column_letter
 
 set_printoptions(suppress=True)
 
@@ -37,8 +35,28 @@ for id,mv,rt in ikd:
 
 
 topTrueFilmi = sorted(allMovies.items(), key=lambda v: v[1][1][0], reverse=True)[:100]
+movNames=defaultdict(list)
+from openpyxl import load_workbook
+movieNames= load_workbook(filename="../data/moviesRMK_V1.xlsx")
+useNames = movieNames['movies']
+useNamesID=[]
+useNamesName=[]
+for i in range(2,9127):
+    wholeColumn=useNames['A'+str(i)].value.split(",")
+    useNamesID.append(wholeColumn[0])
+    useNamesName.append(wholeColumn[1])
 
+useNamesID=[int(i) for i in useNamesID]
+skupajImena=zip(useNamesID,useNamesName)
 
+for m_id, score in topTrueFilmi:
+    for mid, mname in skupajImena:
+        if m_id==mid:
+            movNames[mname]=score[0]
+    skupajImena = zip(useNamesID, useNamesName)
+
+print(movNames)
+from openpyxl import *
 topVrstica=[]
 topVrstica.append("movieID")
 for i in range(0,len(topTrueFilmi[0][1][0])+1):
@@ -54,10 +72,10 @@ for ind,val in enumerate(topVrstica):
 
 currentIndex=2
 forKeys=1
-for key,ratings in topTrueFilmi:
+for key,ratings in movNames.items():
     temp = get_column_letter(forKeys)
-    ws1[temp + str(currentIndex)].value = key
-    for ind,rating in enumerate(ratings[0]):
+    ws1[temp + str(currentIndex)].value = key.strip("\"")
+    for ind,rating in enumerate(ratings):
         ind=ind+1
         temp = get_column_letter(ind + 1)
         ws1[temp + str(currentIndex)].value = rating
