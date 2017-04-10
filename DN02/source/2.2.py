@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import numpy
 from numpy import *
 from collections import defaultdict
 
@@ -23,7 +24,7 @@ for uID,mID,rating in relevantData:
     if len(allMovies[mID])!=2:
         allMovies[mID].append([])
         allMovies[mID].append([])
-        allMovies[mID][0]=["?" for i in range(0,len(list(temp))+1)]
+        allMovies[mID][0]=[numpy.nan for i in range(0,len(list(temp))+1)]
     allMovies[mID][1]=[0]
 
 ikd=zip(userID,movieID,ratingID)
@@ -33,8 +34,16 @@ for id,mv,rt in ikd:
     allMovies[mv][1][0]+=1
 
 
-
+import math
 topTrueFilmi = sorted(allMovies.items(), key=lambda v: v[1][1][0], reverse=True)[:100]
+for ind,vals in enumerate(topTrueFilmi):
+    myCurrent=[]
+    for val in vals[1][0]:
+        if numpy.isnan(val):
+            myCurrent.append(numpy.nanmean(vals[1][0]))
+        else:
+            myCurrent.append(val)
+    topTrueFilmi[ind][1][0]=myCurrent
 movNames=defaultdict(list)
 from openpyxl import load_workbook
 movieNames= load_workbook(filename="../data/moviesRMK_V1.xlsx")
@@ -63,7 +72,7 @@ for i in range(0,len(topTrueFilmi[0][1][0])+1):
     topVrstica.append("u" + str(i))
 from openpyxl import *
 wb = Workbook()
-dest_filename = 'testing_data.xlsx'
+dest_filename = '../data/testing_data.xlsx'
 ws1 = wb.active
 ws1.title = "range names"
 for ind,val in enumerate(topVrstica):
