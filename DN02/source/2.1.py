@@ -34,7 +34,7 @@ mySTD=[]
 for key,value in tempMov.items():
     mySTD.append(value)
 
-print(mySTD)
+#print(mySTD)
 mu_fit = np.mean(mySTD)
 n=len(mySTD)
 sigma2_fit =(n-1)/n * np.var(mySTD)
@@ -48,6 +48,21 @@ for key,value in sorted_x:
     temp.append(value)
 
 import matplotlib.pyplot as plt
+'''
+from scipy.stats import multivariate_normal as mvn
+mu     = 0.9   # sredina
+sigma2 = 1
+sample = mvn.rvs(mu, sigma2, size=n)
+P  = [mvn.pdf(x, mu, sigma2) for x in temp]
+P_fit = [mvn.pdf(x, mu_fit, sigma2_fit) for x in temp ]
+plt.figure()
+plt.hist(sample,    label="Vzorec", normed=True)
+plt.plot(temp, P,     label="P(X) resnična", linewidth=2.0)
+plt.plot(temp, P_fit, label="P(X) ocenjena", linewidth=2.0)   # ocenjena porazdelitev je model
+plt.legend()
+plt.show()
+'''
+
 plt.hist(temp, bins='auto')
 plt.title("Porazdelitev standardnih odklonov filmov.")
 plt.show()
@@ -63,6 +78,7 @@ for key,value in tempMov.items():
         specialDownSet.add(key)
     elif value >=1.2:
         specialUpSet.add(key)
+        print("IME FILMA: "+str(key)+"\tNJEGOVA OCENA: "+str(value))
 
 from openpyxl import load_workbook
 
@@ -84,4 +100,5 @@ for id,movieName in zip(useNamesID,useNamesName):
         specialDown[id] = movieName
 #mas use narjen, preglej se mal teorijo pa bo
 print(specialUp)
+print("##############################################\n\n")
 print(specialDown)

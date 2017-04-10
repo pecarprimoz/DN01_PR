@@ -55,7 +55,7 @@ for m_id, score in topTrueFilmi:
             movNames[mname]=score[0]
     skupajImena = zip(useNamesID, useNamesName)
 
-print(movNames)
+#print(movNames)
 from openpyxl import *
 topVrstica=[]
 topVrstica.append("movieID")
