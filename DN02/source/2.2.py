@@ -72,7 +72,8 @@ for i in range(0,len(topTrueFilmi[0][1][0])+1):
     topVrstica.append("u" + str(i))
 from openpyxl import *
 wb = Workbook()
-dest_filename = '../data/testing_data.xlsx'
+dest_filename = '.' \
+                './data/testing_data.xlsx'
 ws1 = wb.active
 ws1.title = "range names"
 for ind,val in enumerate(topVrstica):
