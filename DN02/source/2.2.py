@@ -34,8 +34,8 @@ for id,mv,rt in ikd:
     allMovies[mv][1][0]+=1
 
 
-import math
 topTrueFilmi = sorted(allMovies.items(), key=lambda v: v[1][1][0], reverse=True)[:100]
+print(topTrueFilmi)
 for ind,vals in enumerate(topTrueFilmi):
     myCurrent=[]
     for val in vals[1][0]:
