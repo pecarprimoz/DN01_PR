@@ -12,6 +12,7 @@ for i in range(0,100):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4)
     clf1 = MultinomialNB()
     clf1.fit(X_train, y_train)
+    print("User"+str(i))
     print("SCORE")
     print(clf1.score(X_test, y_test))
     scores+=float(clf1.score(X_test, y_test))

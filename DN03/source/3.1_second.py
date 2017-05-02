@@ -13,7 +13,7 @@ mse=mean_squared_error(hx,y)
 print(mse)
 '''
 vse_ocene=0
-vse_variance=0
+vse_abs=0
 print("Rezultati za linearno regresijo: ")
 for i in range(0,100):
     x = ds[:, [i]]
@@ -24,9 +24,9 @@ for i in range(0,100):
     print("Mean squared error: %.2f"
           % np.mean((regr.predict(X_test) - y_test) ** 2))
     vse_ocene+=np.mean((regr.predict(X_test) - y_test) ** 2)
-    print('Variance score: %.2f' % regr.score(X_test, y_test))
-    vse_variance+=regr.score(X_test, y_test)
+    print('Mean absolute error : %.2f' % np.mean(abs((regr.predict(X_test) - y_test))))
+    vse_abs+=np.mean(abs((regr.predict(X_test) - y_test)))
 
 
 print(vse_ocene/100)
-print(vse_variance/100)
+print(vse_abs/100)
